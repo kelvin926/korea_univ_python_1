@@ -8,11 +8,14 @@ while(1):
             print(i+1,"번에 맞췄습니다.")
             print("숫자는",gussNum,"입니다.")
             break
-        else:
-            if ansNum < gussNum:
-                print("입력한 숫자가 큽니다")
-            else:
-                print("입력한 숫자가 작습니다")
+        elif ansNum < gussNum:
+            print("입력한 숫자가 큽니다")
+        elif gussNum < ansNum:
+            print("입력한 숫자가 작습니다")
+    if ansNum == gussNum:
+        pass
+    else:
+        print("컴퓨터가 이겼습니다")
     gogo = str(input("계속 하시겠습니까? (y / n) : "))
     if(gogo == 'y'):
         continue
@@ -20,5 +23,5 @@ while(1):
         break
     else:
         print("잘못된 값을 입력하였습니다. 게임을 종료합니다")
-        continue
+        break
 print("게임을 종료합니다.")

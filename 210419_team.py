@@ -16,7 +16,7 @@ while cnt != 0:
     if a ==5 or b ==5:
         continue
     
-    elif ((alist.index(a)==1 and blist.index(b)==1) or (alist.index(a)==1 and blist.index(b)==1)):
+    elif ((alist.index(a)==1 and blist.index(b)==1) or (alist.index(b)==1 and blist.index(a)==1)):
         continue
     
     else:

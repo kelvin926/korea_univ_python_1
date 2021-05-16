@@ -10,14 +10,16 @@
 '''
 # 2번 코드
 N = int(input("양의 정수 값 N을 입력 : "))
-sosu = 1
-for i in range(2, N):
-    if N % i == 0:
-        sosu = 0
-if sosu == 1:
-    print("{}은(는) 소수입니다.".format(N))
-else:
-    print("{}은(는) 소수가 아닙니다.".format(N))
+sosu = []
+for i in range(2, N + 1):
+    is_Sosu = 1
+    for j in range(2, ((i // 2) + 1)):
+        if i % j == 0:
+            is_Sosu = 0
+            break
+    if is_Sosu == 1:
+        sosu.append(i)
+print(sosu)
 '''
 
 #####################################################################################################

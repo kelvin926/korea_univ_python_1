@@ -16,7 +16,7 @@ import time
 # 강수량 함수
 
 def f_rain(day,date_option):
-    rain = open(os.getcwd()+'/py1_univ/2학기 기말 팀프로젝트/csv_file/rain.csv', 'r', encoding='cp949')
+    rain = open('./csv_file/rain.csv', 'r', encoding='cp949')
     rain_data = csv.reader(rain)
     header_1 = next(rain_data)
     
@@ -42,7 +42,7 @@ def f_rain(day,date_option):
 # 미세먼지 함수
 
 def f_dust(day,date_option):
-    dust = open(os.getcwd()+'/py1_univ/2학기 기말 팀프로젝트/csv_file/dust.csv', 'r', encoding='cp949')
+    dust = open('./csv_file/dust.csv', 'r', encoding='cp949')
     dust_data = csv.reader(dust)
     header_2 = next(dust_data)
     
@@ -65,9 +65,11 @@ def f_dust(day,date_option):
 
 # 미세먼지 농도 함수
 def dust_per(percent):
-    if int(percent) <=30: # 좋음
+    if int(percent) <=25: # 좋음
+        return("매우 좋음")
+    elif (int(percent)>25 & int(percent) <= 50): # 보통
         return("좋음")
-    elif (int(percent)>30 & int(percent) <= 80): # 보통
+    elif (int(percent)>50 & int(percent) <= 80): # 보통
         return("보통")
     elif (int(percent)>80 & int(percent) <= 150): # 나쁨
         return("나쁨")
@@ -76,8 +78,9 @@ def dust_per(percent):
     
     '''
     [미세먼지 단계]
-    좋음 : 0~30
-    보통 : 31~80
+    매우 좋음:0~25
+    좋음 : 26~50
+    보통 : 51~80
     나쁨 : 81~150
     매우 나쁨 : 151 ~ 
     '''
@@ -87,7 +90,7 @@ def dust_per(percent):
 # 기온 함수
 
 def f_tem(day, date_option):
-    tem = open(os.getcwd()+'/py1_univ/2학기 기말 팀프로젝트/csv_file/tem.csv', 'r', encoding='cp949')
+    tem = open('./csv_file/tem.csv', 'r', encoding='cp949')
     tem_data = csv.reader(tem)
     header_3 = next(tem_data)
     
@@ -108,6 +111,72 @@ def f_tem(day, date_option):
 
 ###################################################################################
 
+# 교통량 함수
+
+def f_transport(day,date_option):
+    transport = open('./csv_file/transport.csv', 'r', encoding='cp949')
+    transport_data = csv.reader(transport)
+    header_4 = next(transport_data)
+    
+    transport_index = []
+    transport_past_index = []
+    
+    for row_transport in transport_data:
+        transport_index.append(row_transport)
+        
+    for i in range(len(transport_index)):
+        if str(day) == str(transport_index[i][0]):
+            # print("작년의 오늘을 찾았습니다.")
+            transport_past_index = transport_index[i+date_option][0:] 
+
+    return(transport_past_index)
+    transport.close()
+
+
+###################################################################################
+    
+# 교통량 정도 함수
+def transport_per(percent):
+    if int(percent) <=500: 
+        return("매우 좋음")
+    elif (int(percent)>500 & int(percent) <= 800): 
+        return("좋음")
+    elif (int(percent)>800 & int(percent) <= 1200): 
+        return("보통")
+    elif (int(percent)>1200 & int(percent) <= 1600): 
+        return("나쁨")
+    elif (int(percent)>1600): 
+        return("매우 나쁨")
+    
+###################################################################################
+
+# 차량운행지수
+def transport_p(percent):
+    if int(percent) <=500: 
+        return("1")
+    elif (int(percent)>500 & int(percent) <= 800): 
+        return("2")
+    elif (int(percent)>800 & int(percent) <= 1200): 
+        return("3")
+    elif (int(percent)>1200 & int(percent) <= 1600): 
+        return("4")
+    elif (int(percent)>1600): 
+        return("5")
+    
+def  dust_p(percent):
+    if int(percent) <=25: 
+        return("1")
+    elif (int(percent)>25 & int(percent) <= 50): 
+        return("2")
+    elif (int(percent)>50 & int(percent) <= 80): 
+        return("3")
+    elif (int(percent)>80 & int(percent) <= 150): 
+        return("4")
+    elif (int(percent)>150): 
+        return("5")
+
+###################################################################################
+    
 # 날짜 입력, 선택 부분
 
 start_num = 1
@@ -201,11 +270,21 @@ while(1):
 ###################################################################################
 
     if select == 5: # 교통 상황 예측
-        print("도환이가 할 예정")
+        
+        print("{}의 교통량은 {} 입니다.".format(past_day, transport_per(f_transport(past_day,0)[1])))
+
+        print("-------------------------------------------------------------------------------------")
+        start_num = int(input("그만하시겠으면 0번을, 다시 하시겠으면 1번을 눌러주세요 : "))
+        
 ###################################################################################
 
     if select == 6: # 차량 운행 조언
-        print("도환이 코딩 오면 그거 베이스로 작업 예정")
+        print('길 막히는 정도에 따라 1-5로 나눔(5가 막힘)//미세먼지 정도에 따라 1-5로 나눔(5가 더러움)')
+        print("{}의 미세먼지는 {} 이고,교통량은 {} 입니다. 따라서 예측한 차량운행지수는 {} 입니다.".format(past_day, dust_per(f_dust(past_day,0)[3]), transport_per(f_transport(past_day,0)[1]), int(dust_p(f_dust(past_day,0)[3])) + int(transport_p(f_transport(past_day,0)[1]))))
+
+        print("-------------------------------------------------------------------------------------")
+        start_num = int(input("그만하시겠으면 0번을, 다시 하시겠으면 1번을 눌러주세요 : "))
+        
 ###################################################################################
 
     if select == 7: # 종료

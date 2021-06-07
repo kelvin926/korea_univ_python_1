@@ -222,12 +222,20 @@ while(1):
     # 시간 입력 부분
     print("현재 시각은 {}시 {}분 입니다.".format(time.strftime('%H', time.localtime(time.time())), time.strftime('%M', time.localtime(time.time()))))
     print("-------------------------------------------------------------------------------------")
+<<<<<<< HEAD
     now_time = input("기준 시간을 입력해주세요! ex. \'18:03\' : ")
+=======
+    now_time = input("기준 시간을 입력해주세요! ex. \'18시03분\' : ")
+>>>>>>> 310db523af2924f8269de42d6c00083de4bfe22a
     
     global now_hour, now_min
     
     now_hour = int(now_time[0:1])
+<<<<<<< HEAD
     now_min = int(now_time[3:4])
+=======
+    now_min = int(now_time[3:5])
+>>>>>>> 310db523af2924f8269de42d6c00083de4bfe22a
 
 ###################################################################################
 

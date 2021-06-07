@@ -7,19 +7,6 @@
 내용 : 기온, 미세먼지, 강수확률 등의 이전 기상 데이터[딕셔너리]를 이용하여 날씨와 교통 상황을 예측하거나 세차 등의 차량 운행을 조언하는 프로그램.
 '''
 
-
-
-'''
-[to do list]
-1. 교통 상황 예측 부분 코딩. [교통 상황을 CSV로 받는게 아니라, time함수를 이용해서, 출퇴근 시간 + 날씨(비 오는지)에 따라 교통 상황 예측.] (6/5) 완
-2. 차량 운행 지수 코딩. [미세먼지 정도 + 날씨[비 오는지]] (6/5) 완
-3. 전체 디버깅 + 중복 함수 제거 (6/5) 완
-4. 발표자료 제작을 위한 전체 구조도 글로 작성 (6/5)
-5. 최종 발표 자료 제작 [PPT + 순서도] (6/6)
-'''
-
-
-
 import os
 import csv
 import time
@@ -28,7 +15,6 @@ import time
 
 # 강수량 함수
 def f_rain(day,date_option):
-    # rain = open('py1_univ/2학기 기말 팀프로젝트/csv_file/rain.csv', 'r', encoding='cp949')
     rain = open('./csv_file/rain.csv', 'r', encoding='cp949')
     rain_data = csv.reader(rain)
     header_1 = next(rain_data)
@@ -53,7 +39,6 @@ def f_rain(day,date_option):
 
 # 미세먼지 함수
 def f_dust(day,date_option):
-    # dust = open('py1_univ/2학기 기말 팀프로젝트/csv_file/dust.csv', 'r', encoding='cp949')
     dust = open('./csv_file/dust.csv', 'r', encoding='cp949')
     dust_data = csv.reader(dust)
     header_2 = next(dust_data)
@@ -100,7 +85,6 @@ def dust_per(percent):
 
 # 기온 함수
 def f_tem(day, date_option):
-    # tem = open('py1_univ/2학기 기말 팀프로젝트/csv_file/tem.csv', 'r', encoding='cp949')
     tem = open('./csv_file/tem.csv', 'r', encoding='cp949')
     tem_data = csv.reader(tem)
     header_3 = next(tem_data)
@@ -214,7 +198,6 @@ while(1):
     # 작년의 오늘을 구하기.
     now_year = int(now[0:4])
     past_day = str(now_year-1)+now[4:]
-    # print("1년전은 {} 입니다.".format(past_day))
     print("-------------------------------------------------------------------------------------")
 
 ###################################################################################
@@ -222,20 +205,12 @@ while(1):
     # 시간 입력 부분
     print("현재 시각은 {}시 {}분 입니다.".format(time.strftime('%H', time.localtime(time.time())), time.strftime('%M', time.localtime(time.time()))))
     print("-------------------------------------------------------------------------------------")
-<<<<<<< HEAD
     now_time = input("기준 시간을 입력해주세요! ex. \'18:03\' : ")
-=======
-    now_time = input("기준 시간을 입력해주세요! ex. \'18시03분\' : ")
->>>>>>> 310db523af2924f8269de42d6c00083de4bfe22a
     
     global now_hour, now_min
     
     now_hour = int(now_time[0:1])
-<<<<<<< HEAD
     now_min = int(now_time[3:4])
-=======
-    now_min = int(now_time[3:5])
->>>>>>> 310db523af2924f8269de42d6c00083de4bfe22a
 
 ###################################################################################
 
@@ -275,4 +250,3 @@ while(1):
 
     # 종료 확인
     start_num = int(input("종료하시려면 0을, 다시 시도하시겠으면 1을 입력해주세요. : "))
-    
